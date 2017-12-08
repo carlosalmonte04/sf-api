@@ -13,15 +13,15 @@ class CSVParserViewSet(viewsets.ViewSet):
   
   def create(self, request):
     print(request.data)
-    csvFile = urllib.request.urlopen(request.data['CSVUrl'])
-    if csvFile:
+    try:
+      csvFile = urllib.request.urlopen(request.data['CSVUrl'])
+    except Exception as e:
+      return JsonResponse({ 'error': 'invalid csv' })
+    else:
       csvRawData = csvFile.read()
       parsedCsv = self.csv_parser(csvRawData, request.data['CSVType'])
       
       return JsonResponse(parsedCsv)
-    else:
-      return JsonResponse({ 'error': 'invalid csv' })
-
   # helpers
   def csv_parser(self, csvRawData, csvType): # type: 'companies || score-records'
 
