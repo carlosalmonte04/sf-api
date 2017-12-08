@@ -28,7 +28,6 @@ DEBUG = False
 ALLOWED_HOSTS = ['localhost','127.0.0.1', 'sf-csv-parser.herokuapp.com', 'sf-code-test.herokuapp.com']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
