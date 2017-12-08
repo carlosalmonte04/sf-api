@@ -42,7 +42,7 @@ class CSVParserViewSet(viewsets.ViewSet):
           hashedCsv[key] = {
             'fractalIndex': value
           }
-        i += 1`
+        i += 1
     if csvType == 'score-records':
       for row in csvRows:
         if i == 0:
