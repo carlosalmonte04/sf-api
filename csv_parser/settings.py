@@ -25,7 +25,7 @@ SECRET_KEY = '2%oc2^6**y=9q2!)2w5-kc&0l5q(8kgtv_r=9d0($v211869)('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1', 'sf-csv-parser.herokuapp.com', 'sf-code-test.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'sf-csv-parser.herokuapp.com', 'sf-carlos.herokuapp.com']
 
 
 # Application definition

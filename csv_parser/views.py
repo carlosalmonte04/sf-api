@@ -14,11 +14,13 @@ class CSVParserViewSet(viewsets.ViewSet):
   def create(self, request):
     print(request.data)
     csvFile = urllib.request.urlopen(request.data['CSVUrl'])
-    csvRawData = csvFile.read()
-    parsedCsv = self.csv_parser(csvRawData, request.data['CSVType'])
-
-
-    return JsonResponse(parsedCsv)
+    if csvFile:
+      csvRawData = csvFile.read()
+      parsedCsv = self.csv_parser(csvRawData, request.data['CSVType'])
+      
+      return JsonResponse(parsedCsv)
+    else:
+      return JsonResponse({ 'error': 'invalid csv' })
 
   # helpers
   def csv_parser(self, csvRawData, csvType): # type: 'companies || score-records'
@@ -40,7 +42,7 @@ class CSVParserViewSet(viewsets.ViewSet):
           hashedCsv[key] = {
             'fractalIndex': value
           }
-        i += 1
+        i += 1`
     if csvType == 'score-records':
       for row in csvRows:
         if i == 0:
