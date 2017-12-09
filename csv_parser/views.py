@@ -6,24 +6,22 @@ import urllib
 import ssl
 
 class CSVParserViewSet(viewsets.ViewSet):
-  """
-  API endpoint that allows users to be viewed or edited.
-  """
+
   permission_classes = (AllowAny,)
   
   def create(self, request):
     print(request.data)
     try:
       csvFile = urllib.request.urlopen(request.data['CSVUrl'])
-    except Exception as e:
+    except:
       return JsonResponse({ 'error': 'invalid csv' })
     else:
       csvRawData = csvFile.read()
       parsedCsv = self.csv_parser(csvRawData, request.data['CSVType'])
-      
       return JsonResponse(parsedCsv)
+
   # helpers
-  def csv_parser(self, csvRawData, csvType): # type: 'companies || score-records'
+  def csv_parser(self, csvRawData, csvType): # csvType: 'companies || score-records'
 
     csvRows = csvRawData.decode().splitlines()
 
@@ -43,6 +41,7 @@ class CSVParserViewSet(viewsets.ViewSet):
             'fractalIndex': value
           }
         i += 1
+
     if csvType == 'score-records':
       for row in csvRows:
         if i == 0:
@@ -57,6 +56,7 @@ class CSVParserViewSet(viewsets.ViewSet):
             'companyId': cells[4]
           }
         i += 1
+        
     return hashedCsv
 
 
